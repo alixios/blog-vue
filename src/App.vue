@@ -1,28 +1,37 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+   <top-nav-bar v-show="(path==='/home' || path==='/blogTypes' || path==='/Type' || path==='/music'
+   || path==='/archives'  || path==='/blog' || path==='/tags' || path==='/profile' || path==='/login')" ></top-nav-bar>
+
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  import TopNavBar from "./components/layout/TopNavBar";
+  export default {
+    name: 'app',
+    data() {
+      return {
+        path: '',
+      }
+    },
+    components: {
+      TopNavBar
+    },
+    // 判断路由
+    mounted () {
+      this.path = this.$route.path
+      // console.log(this.$route.path)
+    },
+    watch: {
+      $route (to, from) {
+        this.path = to.path
+      }
+    }
   }
-}
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
